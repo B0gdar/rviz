@@ -67,6 +67,13 @@ Ogre::Quaternion MarkerSelectionHandler::getOrientation()
                            marker_->getMessage()->pose.orientation.y,
                            marker_->getMessage()->pose.orientation.z );
 }
+  
+Ogre::Vector3 MarkerSelectionHandler::getScale()
+{
+  return Ogre::Vector3( marker_->getMessage()->scale.x,
+                        marker_->getMessage()->scale.y,
+                        marker_->getMessage()->scale.z );
+}
 
 void MarkerSelectionHandler::createProperties( const Picked& obj, Property* parent_property )
 {
@@ -78,6 +85,9 @@ void MarkerSelectionHandler::createProperties( const Picked& obj, Property* pare
 
   orientation_property_ = new QuaternionProperty( "Orientation", getOrientation(), "", group );
   orientation_property_->setReadOnly( true );
+  
+  position_property_ = new VectorProperty( "Scale", getScale(), "", group );
+  position_property_->setReadOnly( true );
 
   group->expand();
 }
